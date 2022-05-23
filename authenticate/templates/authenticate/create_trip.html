@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Create Trips</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+
+         <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>{% block title %} {% endblock title %} | Trip Sheet Application</title>
+    <link rel="shortcut icon" type="image/png" href='static/favicon.ico'/>
+    <link rel="stylesheet" href="static/css/homepage.css"/>
+
+         <!--________________________For Toggeable tabs__________________________-->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+      <!--________________________For Date Range________________________________-->
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+      <script src="cities.js"></script> 
+
+       <!--_____________________________NAvbar for three pages__________________________-->
+       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'index'  %}">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto" style="float:right;">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'view_trip' %}">View Trip</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'report' %}">View Report</a>
+            </li>
+           
+          </ul>
+          
+        </div>   
+      </nav>  
+      </head>
+      <style>
+      input[type=text]:focus {
+        border: 3px solid #778899;
+      }
+      {% comment %} input[type=number]:focus {
+        border: 3px solid white;
+      } {% endcomment %}
+    </style>
+    <body>
+
+<div class="container py-7">
+   
+                  <!-- ________________________________Basic Details______________________________-->
+                    
+<form>   
+<div class="container py-5">
+    <h3> Basic Details </h3><br>
+
+
+
+
+         <!--___________________________Date Range___________________________-->
+    <div class="form-row">
+        <label for="daterange" class="col-sm-1">Date Range </label>
+        <div class="col-sm-3" > 
+        <div id="reportrange" style="background: #808080; color:white; padding:4px 0px; border-radius:5px; cursor: pointer; text-align: center; justify-content: center;">
+            <i class="fa fa-calendar"></i>&nbsp;
+            <span></span> <i class="fa fa-caret-down"></i>
+        </div>
+        </div> 
+    </div>
+    <script type="text/javascript">
+    $(function() {
+    
+        var start = moment().subtract(29, 'days');
+        var end = moment();
+    
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+    
+        $('#reportrange').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+               'Today': [moment(), moment()],
+               'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+               'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+               'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+               'This Month': [moment().startOf('month'), moment().endOf('month')],
+               'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, cb);
+    
+        cb(start, end);
+    
+    });
+    </script>
+  </div>
+ 
+    <!--_______________________________Basic Information___________________________________-->
+
+    <div class="form-row"> 
+
+
+        <div class="form-group col-md-4">
+            <label for="vehicleno" class="col-sm-4">Vehicle No.</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control form-control-sm"  id="vehicleno" Required>
+            </div>
+        </div>
+    
+            <div class="form-group col-md-4">
+                <label for="drivername" class="col-sm-3">Driver Name</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control form-control-sm"  id="drivername" Required>
+                </div>
+            </div>
+       
+        <div class="form-group col-md-4">
+            <label for="Model" class="col-sm-3">Vehicle Model</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control form-control-sm"  id="vehmodel" Required>
+            </div>
+        </div>
+  
+      <div class="form-group col-md-4">
+        <label for="acunit" class="col-sm-4">AC Unit</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control form-control-sm"  id="acunit" Required>
+        </div>
+    </div>
+
+      
+</form>
+</div>
+
+
+        <!--________________________________For tab2______________________________-->
+
+
+<div class="container py-4">
+    <h3> Trip Details </h3>
+<div class"form-group">
+        <br>
+        <!--___________________________________-Part1_____________________________________________-->
+       
+  <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="frmplace">From</label>
+              <input type="text" class="form-control" id="frmplace">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="toplace">To</label>
+              <input type="text" class="form-control" id="toplace">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="frmplace">Client Name</label>
+              <input type="text" class="form-control" id="clientname">
+            </div>
+  </div>
+</div>
+</div> <!--div for class container-->
+   
+<!--Type of R-->
+<div class="form-group col" onload="subtract_number();">
+<script type="text/javascript">
+    function ShowHideDiv() {
+        var selectcond = document.getElementById("selectcond");
+        var refermileage = document.getElementById("refermileage");
+        var nrefermileage = document.getElementById("nrefermileage");
+        var emptymileage = document.getElementById("emptymileage");
+        refermileage.style.display = selectcond.value == "Refer" ? "block" : "none";
+        nrefermileage.style.display = selectcond.value == "Non-Refer" ? "block" : "none";
+        emptymileage.style.display = selectcond.value == "Empty" ? "block" : "none";
+    }
+</script>
+
+    <select class="form-select form-select-sm-3 mb-4" aria-label=".form-select-lg forr" style="width:50%; padding: 10px 10px; background-color:#B0C4DE; border-radius:5px; border-color:#B0C4DE; color: white; text-align:center; font-weight: bold; outline:none; " id="selectcond"  onchange = "ShowHideDiv()">
+                <option selected disabled>Type of R</option>
+                <option value="Refer">Refer</option>
+                <option value="Non-Refer">Non Refer</option>
+                <option value="Empty">Empty</option>          
+    </select> 
+<div class="form-group col-py-5">
+
+<div class="form-row">
+<!--DIv for refer-->
+  <div id="refermileage" class="form-group col-py-10" style="margin-left:15px; display:none;" onchange="ShowHideDiv()" >
+            Refer Mileage:
+            <input type="number" id="milreferinput" style="border-radius:5px; width:50px; margin-left:5px; border-color:#B0C4DE; outline: none;" oninput="subtract_number();"/>    
+  </div>
+
+  <!--DIv for non refer-->
+  <div id="nrefermileage" class="form-group col-py-10" style="display:none;" onchange="ShowHideDiv()">
+    Non Refer Mileage:
+    <input type="number" id="milnrinput" style="border-radius:5px; width:50px; margin-left:5px; border-color:#B0C4DE; outline: none;" oninput="subtract_number();" />
+  </div>
+
+  <!--DIv for empty-->
+  <div id="emptymileage" class="form-group col-py-10" style="display:none;" onchange="ShowHideDiv()">
+    Empty Mileage:
+    <input type="number" id="milempty" style="border-radius:5px; width:50px; margin-left:5px; border-color:#B0C4DE; outline: none;" oninput="subtract_number();"/>
+  </div>
+</div>
+
+</div>
+</div>
+<div class="container py-4">
+<!--________________________________Opening/Closing KM Items___________________________-->
+<h4> Trip </h4>
+<hr/>
+<div class="form-row" onload="subtract_number();">
+        <div class="form-group col-md-4">
+          <label for="openingkm">Opening KM</label>
+          <input type="number" class="form-control" id="openingkm"  oninput="subtract_number();">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="closingkm">Closing KM</label>
+          <input type="number" class="form-control" id="closingkm"  oninput="subtract_number();">
+        </div>
+
+       
+
+        <div class="form-group col-md-4">
+            <label for="totalkm">Total KM</label>
+            <input type="number" class="form-control" id="totalkm" disabled>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="lhsdrate"> HSD Rate </label>
+            <input type="number" class="form-control" id="hsdrate" style="border-radius:5px;  border-color:#B0C4DE; outline: none;"  oninput="ac_cal(); subtract_number();"/>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="HSDltr">HSD LTR</label>
+            <input type="number" class="form-control" id="hsdltr"  disabled>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="totalval">Total </label>
+            <input type="number" class="form-control" id="totalpriceval" disabled>
+          </div>
+
+          <script>
+            var openingkm = document.getElementById("openingkm");
+            var closingkm = document.getElementById("closingkm");
+            var milreferinput=document.getElementById("milreferinput");
+            var milnrinput=document.getElementById("milnrinput");
+            var milempty=document.getElementById("milempty");
+            var hsdrateval=document.getElementById("hsdrate");
+            
+            function subtract_number() {
+               var OP = parseFloat(openingkm.value);
+               if (isNaN(OP)) OP = 0;
+               var CL = parseFloat(closingkm.value);
+               if (isNaN(CL)) CL = 0;
+               var result = CL-OP;
+               document.getElementById("totalkm").value = result;
+               var milreferval=parseFloat(milreferinput.value);
+               var milnrval=parseFloat(milnrinput.value);
+               var milempty1=parseFloat(milempty.value);
+
+              if (selectcond.value == "Refer"){
+                var res2=(result/milreferval);
+              document.getElementById("hsdltr").value= res2;
+              }
+              else if ( selectcond.value=="Non-Refer")
+              {
+                var res2=(result/milnrval);
+                document.getElementById("hsdltr").value= res2;
+              } else if (selectcond.value=="Empty" ){
+                var res2=(result/milempty1);
+              document.getElementById("hsdltr").value= res2;
+              }
+
+              var hsdratevalue=parseFloat(hsdrateval.value);
+              var totalvalue= hsdratevalue*res2;
+              document.getElementById("totalpriceval").value=totalvalue;
+            }
+         
+        </script>
+
+
+</div>    
+
+<!--_________________FOr AC_________________________________-->
+<h4> AC  </h4>
+<hr>
+<div class="form-row" onload="ac_cal();">
+
+ <div class="form-group col-md-4">
+   <label for="lacstarthour">AC Start Hours</label>
+   <input type="number" class="form-control" id="acstarthour"  oninput="ac_cal();">
+ </div>
+ <div class="form-group col-md-4">
+   <label for="lacendhours">AC End Hours</label>
+   <input type="number" class="form-control" id="acendhour"  oninput="ac_cal();">
+ </div>
+ 
+ <div class="form-group col-md-4">
+   <label for="ltotac">Total AC  Hours</label>
+   <input type="number" class="form-control" id="totalachours" disabled>
+  </div>
+
+  <div class="form-group col-md-4">
+   <label for="lacmil">AC Mileage</label>
+   <input type="number" class="form-control" id="acmil" oninput="ac_cal()">
+ </div>
+   
+
+   <div class="form-group col-md-4">
+     <label for="ltotalachsd">Total HSD </label>
+     <input type="number" class="form-control" id="totalhsdforac" disabled>
+   </div>
+
+
+   <div class="form-group col-md-4">
+    <label for="ltotalachsd">Total AC HSD </label>
+    <input type="number" class="form-control" id="totalachsd" disabled>
+  </div>
+
+   <script>
+     var acstarthour = document.getElementById("acstarthour");
+     var acendhour = document.getElementById("acendhour");
+     var acmil=document.getElementById("acmil");
+     var hsdratev=document.getElementById("hsdrate")
+     
+     function ac_cal() {
+      var acstrt = parseFloat(acstarthour.value);
+      if (isNaN(acstrt)) acstrt = 0;
+      var acendhr = parseFloat(acendhour.value);
+      if (isNaN(acendhr)) acendhr = 0;
+      var totachr = acendhr-acstrt;
+      document.getElementById("totalachours").value = totachr;
+
+      var acmilval=parseFloat(acmil.value);
+      var achsdval=totachr*acmilval;
+      document.getElementById("totalhsdforac").value= achsdval;
+
+      
+      var hsdratevalue=parseFloat(hsdratev.value);
+      var totalvalue= hsdratevalue*achsdval;
+      document.getElementById("totalachsd").value=totalvalue;  
+    }
+ </script>
+</div>    
+
+
+
+
+
+</div>
+<!--____________________________For Tab 3______________________________-->
+        <div id="menu2" class="tab-pane fade">
+          <h3>Menu 2</h3>
+          <p>Some content in menu 2.</p>
+        </div>
+      </div>
+
+<!--____________________________For Tab 4______________________________-->
+        <div id="menu2" class="tab-pane fade">
+          <h3>Menu 2</h3>
+          <p>Some content in menu 2.</p>
+        </div>
+      </div>
+
+
+<!--____________________________For Tab 5______________________________-->
+        <div id="menu2" class="tab-pane fade">
+          <h3>Menu 2</h3>
+          <p>Some content in menu 2.</p>
+        </div>
+      </div>
+
+
+ 
+    
+    </div>
+</body>
+    
+</html>
+
