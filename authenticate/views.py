@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from django.contrib import messages 
 from .forms import SignUpForm, EditProfileForm 
 # Create your views here.
+var = '100'
 def index(request): 
 	return render(request, 'authenticate/index.html', {})
 
@@ -17,27 +18,32 @@ def login_user (request):
 			messages.success(request,('You\'re logged in'))
 			return redirect('index') #routes to 'home' on successful login  
 		else:
-			messages.success(request,('Error logging in'))
+			messages.error(request,('Incorrect credentials'))
 			return redirect('login') #re routes to login page upon unsucessful login
 	else:
 		return render(request, 'authenticate/login.html', {})
 
 def logout_user(request):
 	logout(request)
-	messages.success(request,('Youre now logged out'))
+	messages.success(request,('You\'re now logged out'))
 	return redirect('index')
 
 def register_user(request):
 	if request.method =='POST':
 		form = SignUpForm(request.POST)
+		
 		if form.is_valid():
-			form.save()
-			username = form.cleaned_data['username']
-			password = form.cleaned_data['password1']
-			user = authenticate(username=username, password=password)
-			login(request,user)
-			messages.success(request, ('Youre now registered'))
-			return redirect('index')
+			a = form.cleaned_data.get('user_token')
+			if a == var:
+				form.save()
+				username = form.cleaned_data['username']
+				password = form.cleaned_data['password1']
+				user = authenticate(username=username, password=password)
+				login(request,user)
+				messages.success(request, ('Youre now registered'))
+				return redirect('index')
+			else:	
+				messages.error(request, ('Please get the registration number from owner'))
 	else: 
 		form = SignUpForm() 
 
