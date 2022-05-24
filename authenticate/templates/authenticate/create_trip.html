@@ -58,13 +58,14 @@
       } {% endcomment %}
     </style>
     <body>
-
+<br>
 <div class="container py-7">
    
                   <!-- ________________________________Basic Details______________________________-->
-                    
+                  <div class="card card-body">                   
 <form>   
-<div class="container py-5">
+<div class="container py-3">
+  
     <h3> Basic Details </h3><br>
 
 
@@ -115,7 +116,7 @@
   </div>
  
     <!--_______________________________Basic Information___________________________________-->
-
+    
     <div class="form-row"> 
 
 
@@ -150,12 +151,12 @@
       
 </form>
 </div>
-
+</div>
 
         <!--________________________________For tab2______________________________-->
 
-
-<div class="container py-4">
+<br>
+<div class="card card-body">
     <h3> Trip Details </h3>
 <div class"form-group">
         <br>
@@ -176,7 +177,7 @@
             </div>
   </div>
 </div>
-</div> <!--div for class container-->
+ <!--div for class container-->
    
 <!--Type of R-->
 <div class="form-group col" onload="subtract_number();">
@@ -192,12 +193,13 @@
     }
 </script>
 
-    <select class="form-select form-select-sm-3 mb-4" aria-label=".form-select-lg forr" style="width:50%; padding: 10px 10px; background-color:#B0C4DE; border-radius:5px; border-color:#B0C4DE; color: white; text-align:center; font-weight: bold; outline:none; " id="selectcond"  onchange = "ShowHideDiv()">
+    <select class="form-select form-select-sm-3 mb-4" aria-label=".form-select-lg forr" style="width:25%; position:relative;right:15px; padding: 10px 10px; background-color:#C0C0C0  ; border-radius:5px; border-color:#000000; color: white; text-align:center; font-weight: bold; outline:none; " id="selectcond"  onchange = "ShowHideDiv()">
                 <option selected disabled>Type of R</option>
                 <option value="Refer">Refer</option>
                 <option value="Non-Refer">Non Refer</option>
                 <option value="Empty">Empty</option>          
     </select> 
+  </div>
 <div class="form-group col-py-5">
 
 <div class="form-row">
@@ -224,8 +226,9 @@
 </div>
 <div class="container py-4">
 <!--________________________________Opening/Closing KM Items___________________________-->
-<h4> Trip </h4>
-<hr/>
+<div class="card card-body" style ="position:relative;left:-14px;top:5px;"> 
+<h3> Trip </h3>
+<hr >
 <div class="form-row" onload="subtract_number();">
         <div class="form-group col-md-4">
           <label for="openingkm">Opening KM</label>
@@ -297,41 +300,42 @@
          
         </script>
 
-
+      </div>
 </div>    
-
+<div class="card card-body;" style ="position:relative;left:-14px;top:30px;"> 
 <!--_________________FOr AC_________________________________-->
-<h4> AC  </h4>
+<div class="container py-4">
+<h3  > AC Details</h3>
 <hr>
 <div class="form-row" onload="ac_cal();">
 
- <div class="form-group col-md-4">
+ <div class="form-group col-md-4" style="width:30%;">
    <label for="lacstarthour">AC Start Hours</label>
    <input type="number" class="form-control" id="acstarthour"  oninput="ac_cal();">
  </div>
- <div class="form-group col-md-4">
+ <div class="form-group col-md-4" style="width:30%;">
    <label for="lacendhours">AC End Hours</label>
    <input type="number" class="form-control" id="acendhour"  oninput="ac_cal();">
  </div>
  
- <div class="form-group col-md-4">
-   <label for="ltotac">Total AC  Hours</label>
-   <input type="number" class="form-control" id="totalachours" disabled>
-  </div>
+ <div class="form-group col-md-4;" style="width:30%;">
+  <label for="ltotalachsd">Total AC hours </label>
+  <input type="number" class="form-control" id="totalachours" disabled>
+</div>
 
-  <div class="form-group col-md-4">
+  <div class="form-group col-md-4" style="width:30%;">
    <label for="lacmil">AC Mileage</label>
    <input type="number" class="form-control" id="acmil" oninput="ac_cal()">
  </div>
    
 
-   <div class="form-group col-md-4">
+   <div class="form-group col-md-4 " style="width:30%;">
      <label for="ltotalachsd">Total HSD </label>
      <input type="number" class="form-control" id="totalhsdforac" disabled>
    </div>
 
 
-   <div class="form-group col-md-4">
+   <div class="form-group col-md-4;" style="width:30%;">
     <label for="ltotalachsd">Total AC HSD </label>
     <input type="number" class="form-control" id="totalachsd" disabled>
   </div>
@@ -361,8 +365,8 @@
     }
  </script>
 </div>    
-
-
+</div>
+</div>
 
 
 
